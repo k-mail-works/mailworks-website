@@ -1,0 +1,36 @@
+# Mailworks website
+
+Plain HTML/CSS/JS — no build step, no framework. Two pages: `index.html` (a single-page home covering hero, services, how it works, digital print, and why-us) and `contact.html` (contact info + the inquiry form), sharing `css/styles.css` and `js/main.js`. Kept simple on purpose so a store section (Shopify Buy Button or similar) can be bolted on later without a rebuild.
+
+## Status
+
+- ✅ Inquiry form is wired to Formspree (`https://formspree.io/f/maqrlwvw`), submits via the AJAX handler in `js/main.js`, tags emails "New inquiry — mailworks.com". Formspree auto-detects the `email` field as reply-to.
+- ✅ Design finalized: bold grid/border system, real logo, icon graphics on services + at-a-glance strip.
+- ⬜ Not yet deployed to permanent hosting — currently only previewed locally.
+- ⬜ DNS not yet cut over.
+
+## Hosting recommendation: Cloudflare Pages
+
+Given everything discussed — a low-traffic static brochure site, wanting low cost and low maintenance, and a possible future storefront — **Cloudflare Pages** is the recommendation over Netlify or the current DigitalOcean droplet:
+
+| | DigitalOcean droplet (current) | Netlify | **Cloudflare Pages** |
+|---|---|---|---|
+| Cost | ~$4–6+/mo, ongoing | Free, but credit-based (~15GB bandwidth/mo) — **site goes offline with no warning if exceeded** | Free, **no bandwidth cap** for normal static-site traffic |
+| HTTPS | You set up Certbot + renewal | Automatic | Automatic |
+| OS/server patching | Your responsibility | None — no server | None — no server |
+| Deploying updates | SSH in, copy files | Drag-and-drop | Drag-and-drop |
+
+Cloudflare Pages avoids Netlify's 2026 credit-based free tier risk (a traffic spike could take the site offline) while still being free, low-maintenance, and simple to update.
+
+## Deployment steps
+
+1. Create a free account at [pages.cloudflare.com](https://pages.cloudflare.com).
+2. Drag the `mailworks-site` folder (or connect a Git repo, if you set one up later) directly into the Cloudflare Pages dashboard — it deploys instantly to a temporary `*.pages.dev` URL. Test it there first.
+3. In Cloudflare Pages → your project → **Custom domains**, add `mailworks.com` and `www.mailworks.com`.
+4. **DNS stays at DigitalOcean** — no need to move it. In DigitalOcean → Networking → Domains → `mailworks.com`, update the `A` records (`@`, `www`, and the `*` wildcard if still needed) to point at the address Cloudflare Pages gives you. Leave every other record — MX, the SPF/autodiscover TXT/CNAME, NS, and `FusionValidate` — untouched. These control email (hosted at Intermedia/serverdata.net) and are completely independent of the website.
+5. Repeat for `themailworksinc.com`: update its `A` record (and `www`/wildcard) to the same Cloudflare Pages address, and add a redirect rule so it keeps forwarding to `mailworks.com` (a simple `_redirects` file works on Cloudflare Pages — ask if you want this written for you). Its MX/TXT/autodiscover records stay untouched too.
+6. Once both domains resolve correctly on the new host and you've confirmed email is unaffected, you can destroy the DigitalOcean droplet — that's the only piece of the current setup that actually costs money and needs maintenance. Keep DNS hosted at DigitalOcean (it's free and already correctly configured); there's no reason to migrate it elsewhere.
+
+## Future: adding a storefront
+
+When you're ready, don't build custom checkout/payment handling into this site — plug in **Shopify Buy Button** (or Snipcart) instead. The actual card transaction happens entirely on Shopify's infrastructure (their PCI compliance, not yours); your site just displays a "Buy" button that hands off. Worth a separate conversation once you're ready, since it depends on whether your offerings are fixed-price products or custom quotes.
