@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Mailworks</title>
+<meta name="description" content="Get in touch with Mailworks in Gainesville, GA — call, email, or send a project inquiry.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><img src="mailworks-logo.png" alt="Mailworks"></a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#how">How it works</a></li>
+        <li><a href="index.html#why">Why us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="header-phone" href="tel:7705030020">770-503-0020</a>
+      <a class="btn btn-primary" href="#inquiry-form">Start a project</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-intro">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's talk about your project.</h1>
+      <p class="lede">Call, email, or send the details below — we'll follow up with next steps and a quote.</p>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:none; padding-top:36px;">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <div class="row">
+            <div class="k">Phone</div>
+            <div class="v"><a href="tel:7705030020">770-503-0020</a></div>
+          </div>
+          <div class="row">
+            <div class="k">Email</div>
+            <div class="v"><a href="mailto:info@mailworks.com">info@mailworks.com</a></div>
+          </div>
+          <div class="row">
+            <div class="k">Address</div>
+            <div class="v">2394 Monroe Dr<br>Gainesville, GA</div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <form id="inquiry-form" action="https://formspree.io/f/maqrlwvw" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry — mailworks.com">
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="field">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+            </div>
+            <div class="field">
+              <label for="project_type">Project type</label>
+              <select id="project_type" name="project_type">
+                <option>Direct Mail Campaign</option>
+                <option>Custom Print Project</option>
+                <option>Print + Mail Combined</option>
+                <option>Digital Print</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Tell us about the project</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; text-align:center;">Send inquiry</button>
+            <p id="form-status" class="form-status" role="status"></p>
+            <p class="form-note">Submissions are emailed directly to info@mailworks.com.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <img src="mailworks-logo.png" alt="Mailworks">
+    <div class="footer-meta">
+      <a href="tel:7705030020">770-503-0020</a>
+      <a href="mailto:info@mailworks.com">info@mailworks.com</a>
+      <span>2394 Monroe Dr, Gainesville, GA</span>
+      <span>© <span id="year"></span> Mailworks, Inc.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
